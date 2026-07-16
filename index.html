@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="vi" xml:lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="content-language" content="vi" />
+  <meta name="language" content="vi" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta name="description" content="Hệ thống thi thăng đai 2-trong-1 — Offline &amp; 3 miền Online. GitHub Pages + Google Apps Script + Google Sheets." />
+  <title>Phật Quang Quyền — Hệ thống Thi Thăng Đai 2-trong-1</title>
+  <link rel="icon" type="image/png" href="logo-MP-remove-bg.png" />
+  <link rel="apple-touch-icon" href="logo-MP-remove-bg.png" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="navbar navbar-expand-lg navbar-dark site-nav sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="#hero">
+        <img
+          class="brand-logo"
+          src="logo-MP-remove-bg.png"
+          alt="Logo môn phái Phật Quang Quyền"
+          width="40"
+          height="40"
+          decoding="async"
+        />
+        <span class="brand-text" lang="vi">Phật Quang Quyền</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMain">
+        <ul class="navbar-nav ms-auto gap-lg-1">
+          <li class="nav-item"><a class="nav-link" href="#tongquan">Tổng quan</a></li>
+          <li class="nav-item"><a class="nav-link" href="#kientruc">Kiến trúc</a></li>
+          <li class="nav-item"><a class="nav-link" href="#mode">2 chế độ</a></li>
+          <li class="nav-item"><a class="nav-link" href="#workflow">Workflow</a></li>
+          <li class="nav-item"><a class="nav-link" href="#vaitro">Vai trò</a></li>
+          <li class="nav-item"><a class="nav-link" href="#chamthi">Chấm thi</a></li>
+          <li class="nav-item"><a class="nav-link" href="#scoreboard">Scoreboard</a></li>
+          <li class="nav-item"><a class="nav-link" href="#hauky">Hậu kỳ</a></li>
+          <li class="nav-item"><a class="nav-link" href="#tech">Tech</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header id="hero" class="hero">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <img
+        class="hero-logo"
+        src="logo-MP-remove-bg.png"
+        alt="Logo môn phái Phật Quang Quyền"
+        width="160"
+        height="160"
+        decoding="async"
+        fetchpriority="high"
+      />
+      <h1 class="hero-brand" lang="vi">Phật Quang Quyền</h1>
+      <p class="hero-title">Hệ thống thi thăng đai 2-trong-1</p>
+      <p class="hero-lead">
+        <strong>1 bộ code – 2 kịch bản xử lý – Minh bạch – Trực quan – Gắn kết toàn môn phái.</strong>
+        Offline cục bộ &amp; Online 3 miền trực tiếp trên nền tảng GitHub + Apps Script + Google Sheets.
+      </p>
+      <div class="hero-actions">
+        <a href="#mode" class="btn btn-accent">Online &amp; Offline</a>
+        <a href="#kientruc" class="btn btn-ghost">Xem kiến trúc</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- TỔNG QUAN -->
+  <section id="tongquan" class="section">
+    <div class="container">
+      <div class="section-label">Tổng quan</div>
+      <h2 class="section-title">Số hóa chấm thi thăng đai — linh hoạt mọi điều kiện mạng</h2>
+      <div class="row g-4 mt-2">
+        <div class="col-lg-7">
+          <p class="body-text">
+            Hệ thống phục vụ <strong>chấm thi thăng đai võ thuật</strong> theo mô hình điện tử trên
+            <strong>cùng một bộ mã nguồn</strong>, hỗ trợ hai kịch bản vận hành:
+          </p>
+          <ul class="body-list">
+            <li><strong>Online 3 miền</strong> — giám khảo Bắc / Trung / Nam chấm trực tiếp, dữ liệu tập trung, Scoreboard realtime trên LED.</li>
+            <li><strong>Offline cục bộ</strong> — chấm tại một CLB khi mất mạng; lưu tạm trên thiết bị, đồng bộ Cloud sau khi có Internet.</li>
+          </ul>
+          <p class="body-text mb-0">
+            Người dùng truy cập qua trình duyệt trên <strong>Mobile / Tablet / Laptop</strong>.
+            Frontend host trên <strong>GitHub Pages</strong>, ưu tiên <strong>PWA (Offline First)</strong> và responsive.
+          </p>
+        </div>
+        <div class="col-lg-5">
+          <div class="highlight-panel">
+            <div class="highlight-item">
+              <span class="hi-num">01</span>
+              <span>Minh bạch — Scoreboard công khai trên LED</span>
+            </div>
+            <div class="highlight-item">
+              <span class="hi-num">02</span>
+              <span>Gắn kết — 3 miền cùng một sự kiện trực tiếp</span>
+            </div>
+            <div class="highlight-item">
+              <span class="hi-num">03</span>
+              <span>Chi phí 0đ — không VPS, không server riêng</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="sub-title mt-5">Mục tiêu dự án</h3>
+      <div class="row g-3">
+        <div class="col-6 col-md-4 col-lg-2"><div class="limit-item">Minh bạch 100%</div></div>
+        <div class="col-6 col-md-4 col-lg-2"><div class="limit-item">Gắn kết 3 miền</div></div>
+        <div class="col-6 col-md-4 col-lg-2"><div class="limit-item">Tiết kiệm chi phí</div></div>
+        <div class="col-6 col-md-4 col-lg-2"><div class="limit-item">Dữ liệu tập trung</div></div>
+        <div class="col-6 col-md-4 col-lg-2"><div class="limit-item">Linh hoạt 2-trong-1</div></div>
+        <div class="col-6 col-md-4 col-lg-2"><div class="limit-item">Dễ triển khai</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KIẾN TRÚC -->
+  <section id="kientruc" class="section section-alt">
+    <div class="container">
+      <div class="section-label">Kiến trúc hệ thống</div>
+      <h2 class="section-title">GitHub Pages → Apps Script → Google Sheets → Google Drive</h2>
+      <p class="body-text col-lg-10 px-0">
+        Frontend giao tiếp Backend qua <strong>API POST/GET (Fetch)</strong>. Google Apps Script xử lý logic nghiệp vụ,
+        xác thực qua <strong>Google OAuth2</strong>, ghi/đọc <strong>Google Sheets</strong> và lưu trữ dài hạn trên <strong>Google Drive</strong>.
+      </p>
+
+      <div class="lan-flow mt-4">
+        <div class="lan-node">Browser / PWA<br /><small>Mobile · Tablet · Laptop</small></div>
+        <div class="lan-arrow">→</div>
+        <div class="lan-node">GitHub Pages<br /><small>HTML · CSS · JS</small></div>
+        <div class="lan-arrow">→</div>
+        <div class="lan-node">Apps Script<br /><code>doPost · getData</code></div>
+        <div class="lan-arrow">→</div>
+        <div class="lan-node">Google Sheets<br /><small>CSDL trung tâm</small></div>
+        <div class="lan-arrow">→</div>
+        <div class="lan-node">Google Drive<br /><small>PDF · backup</small></div>
+      </div>
+
+      <div class="row g-4 mt-4">
+        <div class="col-md-4">
+          <div class="pillar">
+            <h3>Frontend</h3>
+            <p>GitHub Pages + PWA. App chấm điểm, Dashboard Thư ký, Scoreboard LED — responsive trên mọi thiết bị.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="pillar">
+            <h3>Backend / API</h3>
+            <p>Google Apps Script Web App: <code>doPost</code> nhận điểm, <code>getData</code> phục vụ Dashboard &amp; Scoreboard.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="pillar">
+            <h3>Database &amp; Storage</h3>
+            <p>Google Sheets lưu điểm &amp; trạng thái. Google Drive lưu PDF, chữ ký, con dấu, media và backup.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="warn-panel mt-5">
+        <h3 class="sub-title mb-3">Switch Mode — một bộ code, hai hướng xử lý</h3>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <p class="mb-1 fw-semibold">Mode 1 · Online 3 miền</p>
+            <p class="body-text mb-0">Javascript gọi API Apps Script qua Internet → ghi Google Sheets realtime.</p>
+          </div>
+          <div class="col-md-6">
+            <p class="mb-1 fw-semibold">Mode 2 · Offline cục bộ</p>
+            <p class="body-text mb-0">Javascript ghi/đọc <code>localStorage</code> trên thiết bị → đồng bộ Sheets/Drive sau thi.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 CHẾ ĐỘ -->
+  <section id="mode" class="section">
+    <div class="container">
+      <div class="section-label">Chế độ hoạt động</div>
+      <h2 class="section-title">Offline cục bộ &amp; Online 3 miền</h2>
+
+      <div class="row g-4 mt-2">
+        <div class="col-lg-6">
+          <div class="option-box option-a">
+            <div class="option-tag">Online · Live Multi-Region</div>
+            <h3>Online 3 miền</h3>
+            <ul class="body-list mb-3">
+              <li>Internet liên tục (4G/Wi-Fi) tại mọi điểm cầu</li>
+              <li>Nút <strong>GỬI ĐIỂM</strong> → Fetch POST → Apps Script → Sheets ngay</li>
+              <li>Dashboard &amp; Scoreboard cập nhật realtime</li>
+              <li>Hạ tầng video Meet / Zoom / Teams (kịch bản Live)</li>
+            </ul>
+            <p class="mb-0">Đồng bộ ngay khi gửi điểm — hậu kỳ chủ yếu xuất PDF và lưu Drive.</p>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="option-box option-b">
+            <div class="option-tag">Offline · 1 CLB</div>
+            <h3>Offline cục bộ</h3>
+            <ul class="body-list mb-3">
+              <li>PWA cache giao diện — không bắt buộc Internet khi thi</li>
+              <li>Nút <strong>LƯU ĐIỂM</strong> → ghi <code>localStorage</code></li>
+              <li><strong>Phương án A:</strong> Hotspot 4G → hoạt động gần như Online</li>
+              <li><strong>Phương án B:</strong> Mất sóng 100% → xuất QR, Thư ký quét tổng hợp</li>
+            </ul>
+            <p class="mb-0">Sau thi: nút <strong>ĐỒNG BỘ</strong> đẩy dữ liệu lên Google Sheets &amp; Drive.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="sub-title mt-5">So sánh Offline vs Online</h3>
+      <div class="table-responsive mt-3">
+        <table class="table tech-table align-middle">
+          <thead>
+            <tr>
+              <th>Tiêu chí</th>
+              <th>Offline (1 CLB)</th>
+              <th>Online (3 miền)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Internet khi thi</strong></td>
+              <td>Không bắt buộc (phương án B)</td>
+              <td>Bắt buộc, liên tục</td>
+            </tr>
+            <tr>
+              <td><strong>Lưu trữ tạm</strong></td>
+              <td><code>localStorage</code> trên thiết bị</td>
+              <td>Gửi trực tiếp qua API</td>
+            </tr>
+            <tr>
+              <td><strong>Nút trên app</strong></td>
+              <td><strong>LƯU ĐIỂM</strong></td>
+              <td><strong>GỬI ĐIỂM</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Đồng bộ Cloud</strong></td>
+              <td>1 lượt sau thi (khi có mạng)</td>
+              <td>Realtime khi gửi điểm</td>
+            </tr>
+            <tr>
+              <td><strong>Dashboard / Scoreboard</strong></td>
+              <td>Không realtime (B); gần như có (A qua 4G)</td>
+              <td>Có, realtime trên LED 3 miền</td>
+            </tr>
+            <tr>
+              <td><strong>Phạm vi</strong></td>
+              <td>1 CLB / cục bộ</td>
+              <td>3 miền + Tổ đình</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKFLOW -->
+  <section id="workflow" class="section section-alt">
+    <div class="container">
+      <div class="section-label">Workflow vận hành</div>
+      <h2 class="section-title">Ba bước chính + hậu kỳ</h2>
+
+      <div class="row g-4 mt-2">
+        <div class="col-lg-4">
+          <div class="phase-card">
+            <div class="phase-num">Bước 1</div>
+            <h3>Setup hạ tầng hình ảnh</h3>
+            <p>Meet / Zoom / Teams kết nối 3 điểm cầu (Bắc, Trung, Nam) với Tổ đình. Camera toàn cảnh + cận cảnh, âm thanh 2 chiều, xuất ra LED.</p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="phase-card phase-card-primary">
+            <div class="phase-num">Bước 2</div>
+            <h3>Chấm điểm &amp; luồng dữ liệu</h3>
+            <p>Giám khảo gửi điểm realtime → Thư ký rà soát &amp; khóa phiếu → Chánh chủ khảo duyệt bằng PIN trên Web App.</p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="phase-card">
+            <div class="phase-num">Bước 3</div>
+            <h3>Scoreboard 3 miền</h3>
+            <p>Polling GET mỗi 5–10 giây. Bảng xếp hạng tự cập nhật trên LED — vinh danh Thủ khoa ngay lập tức.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="process-overview my-5">
+        <div class="po-step">Giám khảo<br /><small>GỬI ĐIỂM</small></div>
+        <div class="po-arrow">→</div>
+        <div class="po-step">Apps Script<br /><small>doPost</small></div>
+        <div class="po-arrow">→</div>
+        <div class="po-step">Google Sheets<br /><small>DRAFT</small></div>
+        <div class="po-arrow">→</div>
+        <div class="po-step accent-step">Thư ký khóa<br /><small>PENDING_APPROVAL</small></div>
+        <div class="po-arrow">→</div>
+        <div class="po-step">CCK + PIN<br /><small>OFFICIALLY_APPROVED</small></div>
+        <div class="po-arrow">→</div>
+        <div class="po-step">Scoreboard LED</div>
+      </div>
+
+      <p class="body-text mb-0 col-lg-10 px-0">
+        Luồng video (Meet/Zoom/Teams) chạy <strong>song song</strong> với luồng điểm số — không thay thế hệ thống chấm điểm.
+      </p>
+    </div>
+  </section>
+
+  <!-- VAI TRÒ -->
+  <section id="vaitro" class="section">
+    <div class="container">
+      <div class="section-label">Vai trò người dùng</div>
+      <h2 class="section-title">Phân công trong kỳ thi</h2>
+
+      <div class="row g-4 mt-2">
+        <div class="col-lg-4">
+          <div class="role-panel">
+            <div class="role-badge">Giám khảo</div>
+            <p class="role-note">Tại điểm cầu / CLB</p>
+            <ol class="role-steps">
+              <li>Mở Web App trên GitHub Pages (PWA)</li>
+              <li>Xem thi &amp; nhập điểm, nhận xét</li>
+              <li>Online: <strong>GỬI ĐIỂM</strong> · Offline: <strong>LƯU ĐIỂM</strong></li>
+              <li>Offline B: xuất QR cho Thư ký quét</li>
+            </ol>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="role-panel role-panel-alt">
+            <div class="role-badge">Thư ký Online</div>
+            <p class="role-note">Tại trung tâm / Tổ đình</p>
+            <ol class="role-steps">
+              <li>Theo dõi Dashboard (GET API từ Sheets)</li>
+              <li>Rà soát, đối chiếu điểm</li>
+              <li>Nhấn <strong>Khóa phiếu</strong> → <code>PENDING_APPROVAL</code></li>
+              <li>Xuất PDF, in USB, hỗ trợ quét QR (Offline B)</li>
+            </ol>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="role-panel">
+            <div class="role-badge">Chánh chủ khảo Online</div>
+            <p class="role-note">Tại trung tâm / Tổ đình</p>
+            <ol class="role-steps">
+              <li>Xem bảng điểm &amp; nhận xét trên Web App</li>
+              <li>Đối chiếu với hình ảnh camera (Live)</li>
+              <li>Nhập <strong>mã PIN</strong> để duyệt</li>
+              <li>Trạng thái → <code>OFFICIALLY_APPROVED</code></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHẤM THI -->
+  <section id="chamthi" class="section section-dark">
+    <div class="container">
+      <div class="section-label light">Quy trình chấm thi</div>
+      <h2 class="section-title light">Từ nhập điểm đến công bố kết quả</h2>
+
+      <div class="row g-4 mt-2">
+        <div class="col-lg-6">
+          <h3 class="sub-title light">Chuỗi trạng thái phiếu điểm</h3>
+          <div class="flow-strip light-flow">
+            <span><code>DRAFT</code></span>
+            <span><code>PENDING_APPROVAL</code></span>
+            <span><code>OFFICIALLY_APPROVED</code></span>
+          </div>
+          <ol class="light-list mt-4">
+            <li>Giám khảo gửi/lưu điểm → <code>DRAFT</code></li>
+            <li>Thư ký khóa phiếu → <code>PENDING_APPROVAL</code></li>
+            <li>Chánh chủ khảo nhập PIN → <code>OFFICIALLY_APPROVED</code></li>
+            <li>Xuất PDF · In USB · Lưu Google Drive</li>
+          </ol>
+        </div>
+        <div class="col-lg-6">
+          <h3 class="sub-title light">Cấu trúc dữ liệu trên Sheets</h3>
+          <div class="table-responsive">
+            <table class="table tech-table tech-table-dark align-middle mb-0">
+              <thead>
+                <tr>
+                  <th>Cột</th>
+                  <th>Ý nghĩa</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code>STT</code></td><td>Số thứ tự</td></tr>
+                <tr><td><code>Võ sinh</code></td><td>Họ tên võ sinh</td></tr>
+                <tr><td><code>P1, P2, P3</code></td><td>Điểm thành phần</td></tr>
+                <tr><td><code>Tổng</code></td><td>Tổng điểm</td></tr>
+                <tr><td><code>Trạng thái</code></td><td>DRAFT → PENDING → APPROVED</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4 mt-4">
+        <div class="col-md-6">
+          <div class="status-box status-pending">
+            <h4>PENDING_APPROVAL</h4>
+            <p class="mb-0">Thư ký đã khóa phiếu — điểm không sửa được, chờ Chánh chủ khảo duyệt.</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="status-box status-approved">
+            <h4>OFFICIALLY_APPROVED</h4>
+            <p class="mb-0">Đã duyệt bằng PIN — sẵn sàng công bố Scoreboard, xuất PDF và lưu Drive.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCOREBOARD -->
+  <section id="scoreboard" class="section">
+    <div class="container">
+      <div class="section-label">Dashboard &amp; Scoreboard</div>
+      <h2 class="section-title">Realtime trên LED 3 miền</h2>
+      <p class="body-text col-lg-9 px-0">
+        Trang Scoreboard trên GitHub Pages dùng <strong>Polling</strong> (<code>setInterval</code> + GET API).
+        Khuyến nghị chu kỳ <strong>5–10 giây</strong> — cân bằng trải nghiệm và hạn mức Apps Script.
+      </p>
+
+      <div class="row g-4 mt-2">
+        <div class="col-lg-5">
+          <h3 class="sub-title">Dashboard (Thư ký)</h3>
+          <ul class="body-list">
+            <li>Nguồn: Google Sheets qua GET API</li>
+            <li>Theo dõi realtime, rà soát, đối chiếu</li>
+            <li>Khóa phiếu → <code>PENDING_APPROVAL</code></li>
+          </ul>
+
+          <h3 class="sub-title mt-4">Khuyến nghị Polling</h3>
+          <div class="table-responsive">
+            <table class="table tech-table align-middle">
+              <thead>
+                <tr><th>Chu kỳ</th><th>Đánh giá</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>3–5 giây</td><td>Realtime cao — tốn API</td></tr>
+                <tr><td><strong>5–10 giây</strong></td><td><strong>Khuyến nghị</strong></td></tr>
+                <tr><td>10–15 giây</td><td>Tiết kiệm API — chậm hơn</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="col-lg-7">
+          <div class="scoreboard-panel">
+            <div class="sb-head">
+              <span class="sb-title">Scoreboard · 3 Miền LIVE</span>
+              <span class="sb-live">LIVE</span>
+            </div>
+
+            <div class="sb-progress">
+              <div class="sb-progress-label">Polling · <strong>5–10 giây</strong> · GET <code>getData</code></div>
+              <div class="sb-progress-track">
+                <div class="sb-progress-bar" style="width: 70%"></div>
+              </div>
+            </div>
+
+            <div class="sb-group">
+              <div class="sb-group-label">Bảng xếp hạng · Thăng đai</div>
+              <div class="sb-row sb-top">
+                <span class="sb-rank">1</span>
+                <span class="sb-name">Nguyễn Văn A <em class="sb-region">Miền Bắc</em> <em class="sb-badge">Thủ khoa</em></span>
+                <span class="sb-score">28.5</span>
+              </div>
+              <div class="sb-row">
+                <span class="sb-rank">2</span>
+                <span class="sb-name">Trần Thị B <em class="sb-region">Miền Trung</em></span>
+                <span class="sb-score">27.8</span>
+              </div>
+              <div class="sb-row">
+                <span class="sb-rank">3</span>
+                <span class="sb-name">Lê Văn C <em class="sb-region">Miền Nam</em></span>
+                <span class="sb-score">27.2</span>
+              </div>
+              <div class="sb-row">
+                <span class="sb-rank">4</span>
+                <span class="sb-name">Phạm Minh D <em class="sb-region">Miền Bắc</em></span>
+                <span class="sb-score">26.9</span>
+              </div>
+            </div>
+
+            <p class="sb-footnote mb-0">Minh họa UI — Hạng · Võ sinh · Miền · Tổng điểm. Dữ liệu thật từ Google Sheets qua polling.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HẬU KỲ -->
+  <section id="hauky" class="section section-alt">
+    <div class="container">
+      <div class="section-label">Quy trình hậu kỳ</div>
+      <h2 class="section-title">Xuất PDF · In ấn · Lưu trữ Drive</h2>
+
+      <div class="row g-4 mt-2">
+        <div class="col-md-6">
+          <div class="pillar">
+            <h3>Thi Online</h3>
+            <ol class="body-list mb-0">
+              <li>Dữ liệu đã có sẵn trên Google Sheets</li>
+              <li>Xuất PDF phiếu điểm trên Web App</li>
+              <li>In qua máy in USB (nếu cần bản cứng)</li>
+              <li>Lưu trữ trên Google Drive</li>
+            </ol>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="pillar">
+            <h3>Thi Offline</h3>
+            <ol class="body-list mb-0">
+              <li>Kết nối Internet (4G/Wi-Fi)</li>
+              <li>Nhấn <strong>ĐỒNG BỘ</strong> / <strong>Đồng bộ lên Google Sheets</strong></li>
+              <li>Đẩy dữ liệu local lên Sheets &amp; Drive</li>
+              <li>Xuất PDF / in / lưu trữ tương tự Online</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div class="pdf-flow mt-5">
+        <div class="pdf-step"><span>1</span> Duyệt trên Web App</div>
+        <div class="pdf-step"><span>2</span> Xuất PDF phiếu điểm</div>
+        <div class="pdf-step"><span>3</span> In qua máy in USB</div>
+        <div class="pdf-step"><span>4</span> Thầy Chưởng Môn ký &amp; đóng dấu</div>
+        <div class="pdf-step"><span>5</span> Lưu Google Drive</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRIỂN KHAI -->
+  <section id="trienkhai" class="section">
+    <div class="container">
+      <div class="section-label">Kiến trúc triển khai</div>
+      <h2 class="section-title">Deploy không cần VPS</h2>
+      <div class="tree-block mt-4">
+        <pre class="tree-pre">GitHub Repository (1 bộ code)
+        │
+        ▼
+GitHub Pages  ──►  Web App (chấm điểm · Dashboard · Scoreboard)
+        │
+        │  Fetch POST/GET
+        ▼
+Google Apps Script (Web App deploy)
+  doPost · getData · Google OAuth2
+        │
+        ▼
+Google Sheets  (CSDL trung tâm)
+        │
+        ▼
+Google Drive   (PDF · chữ ký · con dấu · media · backup)
+
+Switch Mode trên cùng bản triển khai:
+  Online  ──► Apps Script API ──► Sheets (realtime)
+  Offline ──► localStorage ──► ĐỒNG BỘ ──► Sheets/Drive</pre>
+      </div>
+
+      <div class="row g-3 mt-4">
+        <div class="col-md-4"><div class="limit-item">Frontend → GitHub Pages (tự deploy)</div></div>
+        <div class="col-md-4"><div class="limit-item">Backend → Apps Script Web App</div></div>
+        <div class="col-md-4"><div class="limit-item">VPS / Server riêng → <strong>Không dùng</strong></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECH STACK -->
+  <section id="tech" class="section section-alt">
+    <div class="container">
+      <div class="section-label">Công nghệ sử dụng</div>
+      <h2 class="section-title">Tech Stack</h2>
+
+      <div class="table-responsive mt-4">
+        <table class="table tech-table align-middle">
+          <thead>
+            <tr>
+              <th>Thành phần</th>
+              <th>Công nghệ</th>
+              <th>Vai trò</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Frontend</strong></td>
+              <td>HTML5 · CSS · Javascript · PWA · GitHub Pages</td>
+              <td>UI chấm điểm, Dashboard, Scoreboard — Offline First</td>
+            </tr>
+            <tr>
+              <td><strong>Backend / API</strong></td>
+              <td>Google Apps Script · <code>doPost</code> · <code>getData</code></td>
+              <td>Logic nghiệp vụ, validate, ghi/đọc Sheets</td>
+            </tr>
+            <tr>
+              <td><strong>Database</strong></td>
+              <td>Google Sheets</td>
+              <td>CSDL trung tâm — điểm, trạng thái, xếp hạng</td>
+            </tr>
+            <tr>
+              <td><strong>Storage</strong></td>
+              <td>Google Drive</td>
+              <td>PDF, chữ ký, con dấu, media, backup</td>
+            </tr>
+            <tr>
+              <td><strong>Auth</strong></td>
+              <td>Google OAuth2</td>
+              <td>Xác thực &amp; phân quyền Backend</td>
+            </tr>
+            <tr>
+              <td><strong>Realtime</strong></td>
+              <td>Polling <code>setInterval</code> · Fetch GET</td>
+              <td>Scoreboard cập nhật 5–10 giây</td>
+            </tr>
+            <tr>
+              <td><strong>Offline</strong></td>
+              <td>PWA · <code>localStorage</code> · QR sync</td>
+              <td>Chấm thi khi mất mạng, đồng bộ sau</td>
+            </tr>
+            <tr>
+              <td><strong>Video (Live)</strong></td>
+              <td>Meet · Zoom · Teams</td>
+              <td>Hạ tầng hình ảnh 3 miền — song song luồng điểm</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ƯU ĐIỂM & HẠN CHẾ -->
+  <section id="uudiem" class="section section-conclude">
+    <div class="container">
+      <div class="section-label light">Kết luận</div>
+      <h2 class="section-title light">Ưu điểm &amp; hạn chế hiện tại</h2>
+      <div class="row g-4 mt-2">
+        <div class="col-md-6 col-lg-4">
+          <div class="advantage">
+            <div class="adv-num">01</div>
+            <h3>Chi phí 0đ</h3>
+            <p>GitHub Pages + Google Workspace — không VPS, không server 24/7.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="advantage">
+            <div class="adv-num">02</div>
+            <h3>Minh bạch công khai</h3>
+            <p>Scoreboard LED — điểm đi từ giám khảo đến màn hình theo chuỗi trạng thái rõ ràng.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="advantage">
+            <div class="adv-num">03</div>
+            <h3>2-trong-1 linh hoạt</h3>
+            <p>PWA + localStorage + QR khi mất sóng; cùng code cho Offline lẫn Online 3 miền.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="advantage">
+            <div class="adv-num">04</div>
+            <h3>Gắn kết 3 miền</h3>
+            <p>Một Web App, một Sheets — Bắc / Trung / Nam cùng một sự kiện trực tiếp.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="advantage">
+            <div class="adv-num">05</div>
+            <h3>Dễ triển khai</h3>
+            <p>HTML/JS + Apps Script — lập trình viên mới tiếp cận nhanh, dễ bàn giao.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="advantage">
+            <div class="adv-num">06</div>
+            <h3>Giữ nghiệp vụ môn phái</h3>
+            <p>Thư ký khóa phiếu → CCK duyệt PIN → PDF chính thức, ký &amp; đóng dấu.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="sub-title light mt-5">Hạn chế cần lưu ý</h3>
+      <div class="row g-3">
+        <div class="col-md-6"><div class="limit-item limit-item-dark">Quota Google Apps Script khi polling dày</div></div>
+        <div class="col-md-6"><div class="limit-item limit-item-dark">Offline B không realtime — phải quét QR cuối buổi</div></div>
+        <div class="col-md-6"><div class="limit-item limit-item-dark">Dữ liệu localStorage trên thiết bị cho đến khi đồng bộ</div></div>
+        <div class="col-md-6"><div class="limit-item limit-item-dark">Online phụ thuộc chất lượng mạng tại mọi điểm cầu</div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container d-flex flex-wrap justify-content-between align-items-center gap-2">
+      <div class="footer-brand">
+        <img
+          class="footer-logo"
+          src="logo-MP-remove-bg.png"
+          alt="Logo môn phái Phật Quang Quyền"
+          width="36"
+          height="36"
+          decoding="async"
+          loading="lazy"
+        />
+        <div>
+          <strong lang="vi">Phật Quang Quyền</strong>
+          <span class="footer-sep">·</span>
+          GitHub + Apps Script + Google Sheets
+        </div>
+      </div>
+      <div class="footer-meta">1 bộ code – 2 kịch bản – Minh bạch – Gắn kết toàn môn phái</div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
