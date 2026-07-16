@@ -3,7 +3,8 @@
 **Tên hệ thống:** Hệ thống thi thăng đai 2-trong-1 (Offline & 3 miền Online)  
 **Tên gọi khác:** Hệ thống thi thăng đai 3 miền trực tiếp (Live Multi-Region)  
 **Khẩu hiệu:** 1 bộ code – 2 kịch bản xử lý – Minh bạch – Trực quan – Gắn kết toàn môn phái  
-**Nền tảng cốt lõi:** GitHub + Google Apps Script + Google Sheets  
+**Workflow tối ưu:** **Chuẩn bị trước — Đồng bộ sau**  
+**Nền tảng cốt lõi:** GitHub + Google Apps Script + Google Sheets + Google Drive + Web App  
 **Phiên bản tài liệu:** Tổng hợp từ sơ đồ kiến trúc & workflow vận hành chính thức  
 **Đối tượng đọc:** Ban tổ chức kỳ thi, lập trình viên mới, người nhận bàn giao dự án, người trình bày proposal
 
@@ -197,9 +198,184 @@ Giám khảo (PWA đã cache)
 
 ---
 
+# Giai đoạn Tiền Kỳ — Chuẩn bị trước kỳ thi
+
+Giai đoạn **Tiền Kỳ** là bước nền tảng của workflow **Chuẩn bị trước — Đồng bộ sau**. Toàn bộ công việc được thực hiện **tại nhà**, **trước ngày thi 1–2 ngày**, nhằm đảm bảo khi đến sân chỉ cần vận hành — không phải dựng hạ tầng phức tạp trong giờ thi.
+
+### Tổng quan 3 giai đoạn vận hành
+
+```text
+[GIAI ĐOẠN 1 — TIỀN KỲ]  Chuẩn bị tại nhà (1–2 ngày trước)
+        ↓
+[GIAI ĐOẠN 2 — CHẤM THI] Vận hành tại sân (Cloud-First hoặc Local Server)
+        ↓
+[GIAI ĐOẠN 3 — HẬU KỲ]   Đồng bộ Cloud / lưu trữ dài hạn (khi cần)
+```
+
+### Thành phần kỹ thuật liên quan
+
+| Thành phần | Vai trò trong Tiền Kỳ |
+|---|---|
+| **Google Apps Script** | Admin chạy script tạo phòng thi, Folder, Sheets |
+| **Google Sheets** | Lưu danh sách võ sinh, cấu hình kỳ thi |
+| **Google Drive** | Lưu Folder kỳ thi, template, tài liệu đính kèm |
+| **Web App** (GitHub Pages) | Nguồn link/QR truy cập cho giám khảo |
+| **Router LAN** *(nếu dùng Local Server)* | Cấu hình Wi-Fi & test trước tại nhà |
+
+---
+
+## Checklist kết quả sau Tiền Kỳ
+
+Trước khi đến sân thi, ban tổ chức cần đạt đủ các mục sau:
+
+- [ ] **Phòng thi** (Folder + Google Sheets) đã được tạo
+- [ ] **Danh sách võ sinh** đã import đầy đủ
+- [ ] **Link / mã QR** truy cập Web App đã sẵn sàng cho từng giám khảo
+- [ ] **Router + máy in** đã cấu hình và test *(bắt buộc nếu chọn phương án Local Server / LAN)*
+
+> Khi hoàn tất Tiền Kỳ: phòng thi sẵn sàng · danh sách và dữ liệu võ sinh sẵn sàng · link/QR riêng cho từng giám khảo · thiết bị và mạng đã được test.
+
+### Kết quả sau khi chuẩn bị
+
+| Kết quả | Ý nghĩa vận hành |
+|---|---|
+| **Room thi đã sẵn sàng** | Folder, Google Sheets và cấu hình kỳ thi đã được khởi tạo |
+| **Danh sách & dữ liệu đã sẵn sàng** | Võ sinh đủ điều kiện đã được import vào hệ thống |
+| **Link / QR cho từng giám khảo** | Mỗi giám khảo có sẵn đường truy cập Web App để vào chấm thi |
+| **Thiết bị & mạng đã được test** | Router, Local Server (nếu có), máy in và đường truy cập đã được kiểm tra trước |
+
+---
+
+## Bước 1 — Tạo phòng thi (Exam Room)
+
+**Người thực hiện:** Admin / Ban tổ chức  
+**Công cụ:** Google Apps Script (Master Dashboard hoặc script tạo kỳ thi)
+
+Admin chạy Apps Script để hệ thống **tự động** tạo Folder và Google Sheets cho kỳ thi.
+
+### Thông tin cần nhập
+
+| Trường | Ví dụ / ghi chú |
+|---|---|
+| Tên kỳ thi | *Thi Thăng Đai HCM 08/2026* |
+| Ngày tổ chức | Ngày thi chính thức |
+| Địa điểm | HCM, Hà Nội, CLB cụ thể… |
+| Đợt thi / Loại kỳ thi | Phân loại nội bộ môn phái |
+| Email / mã định danh vai trò | Giám khảo, Thư ký, Chánh Chủ Khảo |
+
+### Hệ thống tự động thực hiện
+
+1. Tạo **thư mục Google Drive** cho kỳ thi, ví dụ: `Thi_Thang_Dai_HCM_08_2026` (hoặc mã `PQQ-HCM-2026-008`).
+2. Sao chép **Template Exam Room** (Google Sheets + cấu hình Apps Script gắn kèm).
+3. Ghi nhận **phân quyền vai trò** (giám khảo, thư ký, chánh chủ khảo) để Web App và Backend dùng chung trong suốt kỳ thi.
+
+```text
+Admin chạy Apps Script
+        ↓
+Tạo Folder Drive + Google Sheets mẫu
+        ↓
+Gắn cấu hình Apps Script Web App
+        ↓
+Phòng thi (Exam Room) sẵn sàng
+```
+
+---
+
+## Bước 2 — Chốt danh sách võ sinh
+
+**Người thực hiện:** Admin / Thư ký  
+**Nơi thao tác:** Google Sheets của phòng thi vừa tạo
+
+Import hoặc dán **toàn bộ danh sách võ sinh đủ điều kiện** vào hệ thống.
+
+### Dữ liệu tối thiểu cần có
+
+| Trường | Mô tả |
+|---|---|
+| Mã võ sinh | Định danh duy nhất trong kỳ thi |
+| Họ tên | Tên hiển thị trên phiếu & Scoreboard |
+| Ngày sinh | Thông tin đối chiếu |
+| CLB / Đơn vị | Câu lạc bộ hoặc miền |
+| Cấp thi | Cấp đai dự thi |
+
+> Chi tiết tên tab sheet (ví dụ `DANH_SACH_GOC`) và các cột phụ trợ **chưa được thể hiện đầy đủ trong hình ảnh** — cần bổ sung từ template Sheets thực tế.
+
+Sau khi import, hệ thống khởi tạo sẵn các dòng trống cho điểm, trạng thái duyệt và dữ liệu hiển thị Scoreboard — sẵn sàng nhận điểm khi kỳ thi bắt đầu.
+
+---
+
+## Bước 3 — Tạo mã QR / Link truy cập Web App
+
+**Mục đích:** Giám khảo chỉ cần **quét QR** hoặc **mở link** trên điện thoại / máy tính bảng để vào Web App chấm thi — không cần cài đặt phần mềm.
+
+### Loại link tùy phương án vận hành tại sân
+
+| Phương án tại sân | Link / QR trỏ tới |
+|---|---|
+| **Cloud-First** (có 4G/Wi-Fi) | URL Web App trên **GitHub Pages** (hoặc URL Apps Script Web App đã deploy) |
+| **Local Server** (mất sóng) | IP nội bộ laptop Thư ký, ví dụ: `http://192.168.1.100` |
+
+### Quy trình
+
+1. Hệ thống (hoặc Admin) sinh **link truy cập** cho từng giám khảo / vai trò.
+2. Xuất **mã QR** in sẵn hoặc gửi qua kênh nội bộ trước ngày thi.
+3. Giám khảo mở link → vào giao diện chấm điểm tương ứng vai trò đã được gán.
+
+> Đối với kỳ thi **Online 3 miền**, link thường là URL GitHub Pages dùng chung; phân quyền xử lý sau khi đăng nhập (chi tiết auth **chưa được thể hiện trong hình ảnh**).
+
+---
+
+## Bước 4 — Chuẩn bị Router & thiết bị *(nếu dùng LAN / Local Server)*
+
+Bước này **bắt buộc** khi dự kiến vận hành **Phương án B — Local Server** tại sân (mất sóng hoàn toàn). **Không** dựng LAN phức tạp ngay tại sân — mọi thứ phải **chuẩn bị và test trước ở nhà**.
+
+### Checklist cấu hình
+
+| Hạng mục | Hướng dẫn |
+|---|---|
+| **Wi-Fi router** | Cấu hình SSID riêng cho kỳ thi, ví dụ: `PQQ_KhaoThi` |
+| **IP tĩnh laptop Thư ký** | Ví dụ: `192.168.1.100` — dùng làm địa chỉ Local Server |
+| **Local Server** | Cài / khởi động Web App nội bộ trên laptop Thư ký |
+| **Snapshot dữ liệu** | Xuất dữ liệu kỳ thi từ Google Sheets xuống Local Server |
+| **Máy in USB** | Gắn vào laptop Thư ký, in thử 1 trang PDF |
+| **Test end-to-end** | Điện thoại kết nối Wi-Fi → mở link/QR → gửi điểm mẫu → kiểm tra Scoreboard |
+
+### Lưu ý quan trọng từ sơ đồ vận hành
+
+| Vấn đề cần tránh | Giải thích |
+|---|---|
+| Dựng LAN phức tạp tại sân | Dễ lỗi IP, đứt cáp, cấu hình sai — phải test trước ở nhà |
+| Chỉ lưu điểm trên `localStorage` từng điện thoại | Các thiết bị không “nói chuyện” được với nhau → **không có Scoreboard realtime & Thủ khoa** |
+| Bỏ qua bước test máy in | In phiếu tại chỗ là yêu cầu nghiệp vụ sau khi duyệt |
+
+### Gợi ý chọn phương án tại sân (sau Tiền Kỳ)
+
+| Điều kiện sân thi | Phương án khuyến nghị |
+|---|---|
+| Có **4G/Wi-Fi ổn định** | **Phương án A — Cloud-First**: quét QR → nhập điểm → đẩy thẳng Google Sheets realtime |
+| **Mất sóng / sóng yếu** | **Phương án B — Local Server**: Wi-Fi nội bộ → IP `192.168.1.100` → đồng bộ Cloud sau thi |
+
+---
+
+## Sơ đồ Tiền Kỳ
+
+```mermaid
+flowchart TD
+  START[Bắt đầu Tiền Kỳ · 1–2 ngày trước · tại nhà]
+  S1[Bước 1: Admin chạy Apps Script<br/>Tạo Folder + Sheets · Exam Room]
+  S2[Bước 2: Import danh sách võ sinh<br/>Chốt đủ điều kiện dự thi]
+  S3[Bước 3: Sinh Link / QR<br/>Web App chấm thi cho giám khảo]
+  S4[Bước 4: Cấu hình Router + test LAN<br/>Chỉ khi dùng Local Server]
+  DONE[Checklist đạt · Sẵn sàng đến sân thi]
+
+  START --> S1 --> S2 --> S3 --> S4 --> DONE
+```
+
+---
+
 # Workflow vận hành
 
-Quy trình vận hành kỳ thi Online 3 miền được chia thành **3 bước chính**, sau đó là **giai đoạn hậu kỳ**.
+Quy trình vận hành toàn bộ kỳ thi gồm **3 giai đoạn macro** (xem [Giai đoạn Tiền Kỳ](#giai-đoạn-tiền-kỳ--chuẩn-bị-trước)), trong đó **Giai đoạn 2 — Chấm thi** với kịch bản **Online 3 miền trực tiếp** được chia thành **3 bước vận hành** tại sân, sau đó là **hậu kỳ**.
 
 ## Bước 1 — Setup hạ tầng hình ảnh (Luồng Video)
 
@@ -549,6 +725,17 @@ GitHub Pages App ───┤
 
 # Mermaid Diagrams
 
+## 0. Ba giai đoạn vận hành (Chuẩn bị trước — Đồng bộ sau)
+
+```mermaid
+flowchart LR
+  G1[Giai đoạn 1<br/>Tiền Kỳ<br/>Tại nhà · 1–2 ngày trước]
+  G2[Giai đoạn 2<br/>Chấm thi<br/>Cloud-First hoặc Local Server]
+  G3[Giai đoạn 3<br/>Hậu kỳ<br/>Đồng bộ Cloud · Lưu Drive]
+
+  G1 --> G2 --> G3
+```
+
 ## 1. Kiến trúc tổng quan
 
 ```mermaid
@@ -778,6 +965,274 @@ Các mục dưới đây **chưa được thể hiện đầy đủ / chưa có*
 > Mọi mục trên được đánh dấu là **Chưa được thể hiện trong hình ảnh** — không suy diễn thành đặc tả chính thức cho đến khi có nguồn bổ sung.
 
 ---
+
+### PHẦN 1: THIẾT LẬP BAN ĐẦU & CẤU HÌNH HỆ THỐNG (SETUP)
+
+#### 1) Đối với Mode Online (REALTIME OVER INTERNET)
+
+##### 1.1. Setup màn hình Scoreboard LED tại Tổ đường (Polling 5-10s)
+
+**Mục tiêu:** hiển thị xếp hạng realtime theo chuỗi trạng thái `DRAFT -> PENDING_APPROVAL -> OFFICIALLY_APPROVED`, không cần WebSocket.
+
+**Cách vận hành (Frontend scoreboard LED):**
+- Scoreboard là một trang trong GitHub Pages.
+- Khi trang mở, chạy `setInterval` để gọi API `GET getData` (hoặc endpoint chuyên cho scoreboard) tới Google Apps Script.
+- Mỗi lần polling gửi tham số:
+  - `examId` (mã kỳ thi/phòng thi)
+  - `roomId` (nếu có chia bảng)
+  - `requestedAt` hoặc `sinceVersion` (giúp backend trả nhanh nếu không có dữ liệu mới)
+  - `lastApprovedVersion` (tránh render lại các thay đổi chưa chốt nếu scoreboard chỉ cần trạng thái chính thức)
+- Backend trả về payload tối giản đủ để render bảng: top N, hạng, tổng điểm, và “timestamp dữ liệu”.
+
+**Khuyến nghị chu kỳ:**
+- `5s` cho cảm giác “live” cao.
+- `5–10s` cho cân bằng trải nghiệm và quota Apps Script.
+
+##### 1.2. Tối ưu quota/limit Google Apps Script khi nhiều thiết bị polling
+
+Khi nhiều thiết bị cùng polling mỗi 5-10 giây, rủi ro chính là quota request tăng nhanh và backend phải đọc Sheets/tính ranking lặp lại.
+
+**Giải pháp tối ưu (ưu tiên theo thứ tự):**
+
+1. **Caching derived scoreboard bằng `CacheService`**
+   - Backend lưu JSON scoreboard đã tính vào cache theo key:
+     - `scoreboard:{examId}:{stateFilter}:{bucketTs}`
+   - TTL gợi ý: 15-20 giây.
+   - Request cùng bucket trả thẳng từ cache, giảm đọc Sheets.
+
+2. **Guard bằng `sinceVersion`**
+   - Scoreboard gửi `sinceVersion`.
+   - Backend trả `status: "UNCHANGED"` nếu không đổi (payload nhỏ) và scoreboard không re-render.
+
+3. **Jitter polling theo thiết bị**
+   - Thiết bị A/B/C lệch lịch polling ngẫu nhiên +/-1.5s để tránh “thundering herd”.
+
+4. **Rate limiting nhẹ theo `deviceId`**
+   - Nếu quá nhiều request trong 1 cửa sổ thời gian, trả “UNCHANGED” thay vì đọc Sheets.
+
+5. **Giảm chi phí tính toán**
+   - Tránh đọc toàn bộ `getDataRange()` mỗi lần.
+   - Chỉ đọc vùng/cột cần hiển thị (ưu tiên cột `TONG` đã có sẵn).
+
+##### 1.3. Chính sách hiển thị theo trạng thái (DRAFT vs OFFICIALLY_APPROVED)
+
+Hai lựa chọn:
+- **Minh bạch realtime:** hiển thị cả `DRAFT` (nhanh nhưng có thể thay đổi).
+- **Ổn định hơn:** scoreboard chỉ hiển thị từ `OFFICIALLY_APPROVED` (hoặc ưu tiên theo rule).
+
+#### 2) Đối với Mode Offline (OFFLINE CỤC BỘ - KHÔNG INTERNET)
+
+##### 2.1. Cache giao diện chấm điểm với Service Worker (Offline First)
+
+**Mục tiêu:** thiết bị Giám khảo ngắt mạng vẫn mở được Web App và bấm “LƯU ĐIỂM”, không bị phụ thuộc API.
+
+**Service Worker cần làm:**
+1. **Precache App Shell**
+   - Cache `index.html`, `css/*.css`, `js/*.js`, `manifest.json`, icons, ảnh tĩnh.
+   - Tạo cache theo version `pqq-static-v{buildId}`.
+2. **Cache-first cho asset tĩnh**
+   - Trả từ cache khi có.
+3. **Offline fallback cho luồng API**
+   - Khi fetch API thất bại do offline: frontend không gửi realtime, chuyển sang ghi `localStorage`/IndexedDB.
+4. **Cleanup cache cũ**
+   - Xóa cache cũ để tránh phình dung lượng.
+
+##### 2.2. Kiểm soát trạng thái offline trong Frontend
+
+Frontend kết hợp:
+- `navigator.onLine` + bắt lỗi fetch,
+- mode được chọn trên UI (“Offline cục bộ”).
+
+Trong offline:
+- đổi label/nút (`GỬI ĐIỂM` -> `LƯU ĐIỂM`),
+- không gọi endpoint bắt buộc,
+- đảm bảo trải nghiệm nhập điểm liền mạch.
+
+---
+### PHẦN 2: LUỒNG CỦA DỮ LIỆU & CHUỖI TRẠNG THÁI CHI TIẾT (END-TO-END WORKFLOW)
+
+> Quy ước trạng thái phiếu:
+> - `DRAFT`: giám khảo đã gửi/lưu, chưa khóa.
+> - `PENDING_APPROVAL`: thư ký đã khóa phiếu, chờ PIN duyệt.
+> - `OFFICIALLY_APPROVED`: chánh chủ khảo duyệt, kết quả chính thức.
+
+#### 1) KỊCH BẢN 1: ONLINE 3 MIỀN (GỬI ĐIỂM REALTIME)
+
+##### Bước 1: Giám khảo chấm và nhấn “GỬI ĐIỂM”
+
+**Ví dụ Payload JSON thực tế gửi lên** (action: `submitScore`) — bao gồm mã võ sinh, P1/P2/P3 và ID giám khảo:
+
+```json
+{
+  "action": "submitScore",
+  "examId": "PQQ-HCM-2026-008",
+  "roomId": "ROOM_A",
+  "boutId": "BOUT-000123",
+  "student": {
+    "studentId": "VS-000058",
+    "studentCode": "PQQ-058",
+    "studentName": "TRAN VAN B"
+  },
+  "judge": {
+    "judgeId": "GK-101",
+    "judgeName": "NGUYEN VAN A"
+  },
+  "scores": {
+    "P1": 7,
+    "P2": 8,
+    "P3": 6,
+    "total": 21
+  },
+  "note": "Đòn kỹ thuật sạch, tinh thần ổn định.",
+  "clientRequestId": "9b4c2a88-6a4f-4d7c-9c9e-7af2b1e0c6e1",
+  "idempotencyKey": "PQQ-HCM-2026-008|ROOM_A|BOUT-000123|VS-000058|GK-101",
+  "submittedAt": "2026-07-16T14:37:12.123+07:00",
+  "appVersion": "1.0.0"
+}
+```
+
+**Trạng thái ghi nhận trên Sheets:** `DRAFT`.
+- Apps Script validate + upsert theo khóa nghiệp vụ.
+- Lưu `idempotencyKey` để chống trùng.
+
+##### Bước 2: Thư ký rà soát và nhấn “Khóa phiếu”
+
+**Trạng thái chuyển sang:** `PENDING_APPROVAL`.
+
+**Cơ chế khóa ở Frontend để Giám khảo không thể chỉnh sửa sau khi đã khóa:**
+1. Scoring table hiển thị trạng thái theo `getData`.
+2. Nếu row ở `PENDING_APPROVAL` (hoặc cao hơn):
+   - disable input,
+   - disable nút “GỬI ĐIỂM”.
+3. Backend vẫn enforcing:
+   - endpoint `submitScore` từ chối nếu trạng thái hiện tại != `DRAFT`.
+
+##### Bước 3: Chánh chủ khảo (CCK) nhập PIN để duyệt
+
+**Trạng thái chuyển sang:** `OFFICIALLY_APPROVED`.
+
+**Xác thực PIN trên Apps Script để đảm bảo an toàn:**
+1. PIN được lưu dưới dạng hash (`SHA-256(PIN + salt)`), không lưu plaintext.
+2. Endpoint `approveScore` chỉ cho phép role CCK (OAuth2 + mapping `judgeId`).
+3. Có cơ chế giới hạn thử sai theo `CCK-... + examId` (sau N lần sai khóa T phút).
+4. `idempotencyKey` cho approve để nút duyệt bấm nhiều lần không gây ghi đè sai.
+5. Chỉ duyệt khi phiếu đang `PENDING_APPROVAL`.
+
+#### 2) KỊCH BẢN 2: OFFLINE CỤC BỘ (LƯU TRỮ VÀ ĐỒNG BỘ SAU THI)
+
+##### Bước 1: Giám khảo nhấn “LƯU ĐIỂM” khi không có mạng
+
+**Ví dụ dữ liệu JSON lưu Local Storage / IndexedDB** (có timestamp):
+
+```json
+{
+  "action": "offlineSaveScore",
+  "examId": "PQQ-HCM-2026-008",
+  "roomId": "ROOM_A",
+  "boutId": "BOUT-000123",
+  "scoreKey": "PQQ-HCM-2026-008|ROOM_A|BOUT-000123|VS-000058|GK-101",
+  "judge": { "judgeId": "GK-101" },
+  "student": { "studentId": "VS-000058" },
+  "scores": { "P1": 7, "P2": 8, "P3": 6, "total": 21 },
+  "note": "Đòn kỹ thuật sạch, tinh thần ổn định.",
+  "savedAtDevice": "2026-07-16T14:40:01.000+07:00",
+  "savedAtEpochMs": 1721121601000,
+  "clientDeviceId": "DEV-GK-101-9f3a",
+  "payloadId": "sub-9d3a5f4d-2d0b-4c2a-8a77-1e2a6b4d6c01",
+  "idempotencyKey": "PQQ-HCM-2026-008|ROOM_A|BOUT-000123|VS-000058|GK-101",
+  "payloadHash": "sha256:9c7d... (hash canonical payload)"
+}
+```
+
+##### Bước 2 (Phương án A): Có sóng 4G/Hotspot yếu -> nhấn “ĐỒNG BỘ”
+
+**Luồng:**
+- Gom bản ghi offline chưa sync.
+- Gửi lần lượt lên `doPost submitScore`.
+- Luôn kèm `idempotencyKey`/`payloadId`.
+
+**Tránh trùng & xử lý ghi đè:**
+- Khuyến nghị upsert theo `scoreKey`:
+  - nếu trên Sheets đang `DRAFT` => cập nhật,
+  - nếu `PENDING_APPROVAL`/`OFFICIALLY_APPROVED` => reject (tránh sửa sau khóa).
+
+##### Bước 3 (Phương án B): Mất sóng 100% -> xuất mã QR
+
+**Định dạng nén/encode để nhét tối đa thông tin trong QR:**
+1. JSON canonical -> UTF-8 bytes.
+2. Nén chuỗi (LZ-string/deflate) để giảm kích thước.
+3. (Khuyến nghị) Mã hóa payload (AES-256-GCM) với khóa chia sẻ `qrSecret` để tránh đọc trái phép; lưu kèm `iv` + `authTag`.
+4. Base64URL encode để an toàn khi nhúng QR.
+5. Nếu vượt dung lượng QR: chia thành nhiều chunk (`chunkIndex/chunkCount`).
+
+> Nếu không cần mã hóa, có thể bỏ bước (3) và chỉ nén + Base64URL.
+
+**Ví dụ cấu trúc QR cell:**
+
+```json
+{
+  "v": 1,
+  "expId": "exp-2d6a7c2c-3f3c-4f4e-9b7b-1a2b3c4d5e6f",
+  "chunkIndex": 1,
+  "chunkCount": 3,
+  "data": "BASE64URL(CompressedBytes)",
+  "digest": "sha256(canonicalPayload)"
+}
+```
+
+Thư ký quét QR:
+- decode Base64URL,
+- nếu có AES-GCM: decrypt bằng `qrSecret` (khóa chia sẻ),
+- decompress,
+- xác minh `digest`,
+- dedup theo `payloadId/scoreKey`,
+- gom vào scoreboard local.
+
+---
+### PHẦN 3: XỬ LÝ SỰ CỐ & TRƯỜNG HỢP BIÊN (EDGE CASES)
+
+#### 1) Online: mạng chập chờn khi gửi điểm
+
+**Chống trùng bằng Idempotency Key:**
+- Frontend retry nhiều lần nhưng giữ nguyên `idempotencyKey` cho cùng `scoreKey`.
+- Apps Script lưu `idempotencyKey -> result/status`:
+  - nếu trùng => trả về result cũ, không ghi thêm.
+
+#### 2) Offline: xung đột dữ liệu giữa máy GK và dữ liệu thư ký quét QR
+
+**Conflict Resolution:**
+1. Nếu cùng `scoreKey` nhưng khác `payloadHash` => tạo conflict record (không overwrite trực tiếp).
+2. Đánh dấu phiếu `NEEDS_REVIEW`.
+3. Chờ CCK xử lý theo video live: chọn attempt đúng -> cập nhật “current” và chuyển `OFFICIALLY_APPROVED`.
+
+---
+### PHẦN 4: QUY TRÌNH HẬU KỲ (POST-EVENT)
+
+#### 1) Tự động xuất file PDF khi phiếu đạt `OFFICIALLY_APPROVED`
+
+**Cơ chế trigger:**
+- Online: ngay sau khi Apps Script cập nhật trạng thái `OFFICIALLY_APPROVED`.
+- Offline: sau khi đồng bộ lên Sheets và trạng thái đã `OFFICIALLY_APPROVED`.
+
+**Flow xuất PDF:**
+1. Apps Script đọc phiếu từ Google Sheets.
+2. Điền dữ liệu vào template Google Docs (hoặc template HTML->doc).
+3. Export thành PDF.
+4. Lưu vào Drive:
+   - `/ExamRoom/{examId}/{roomId}/PDF_Phiếu/{studentId}/...pdf`
+5. Update Sheets: `pdfUrl`, `pdfGeneratedAt`, `pdfHash`.
+
+#### 2) Chèn chữ ký số hóa và con dấu của Thầy Chưởng Môn vào PDF
+
+**Giải pháp phù hợp stack hiện có (visual):**
+- Lưu ảnh chữ ký và con dấu trong Google Drive.
+- Khi tạo Google Docs template:
+  - chèn ảnh chữ ký vào vị trí cố định,
+  - chèn ảnh con dấu vào vị trí cố định,
+  - export PDF.
+
+**Ghi chú về chữ ký số cryptographic:**
+- Nếu cần chữ ký pháp lý cryptographic (PAdES/PKCS#7), cần thêm công cụ ký số chuyên dụng bên ngoài; Apps Script thuần có thể chỉ đáp ứng chữ ký dạng hình ảnh.
 
 # Kết luận
 

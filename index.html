@@ -39,10 +39,12 @@
           <li class="nav-item"><a class="nav-link" href="#tongquan">Tổng quan</a></li>
           <li class="nav-item"><a class="nav-link" href="#kientruc">Kiến trúc</a></li>
           <li class="nav-item"><a class="nav-link" href="#mode">2 chế độ</a></li>
+          <li class="nav-item"><a class="nav-link" href="#setup">Tiền kỳ</a></li>
           <li class="nav-item"><a class="nav-link" href="#workflow">Workflow</a></li>
           <li class="nav-item"><a class="nav-link" href="#vaitro">Vai trò</a></li>
           <li class="nav-item"><a class="nav-link" href="#chamthi">Chấm thi</a></li>
           <li class="nav-item"><a class="nav-link" href="#scoreboard">Scoreboard</a></li>
+          <li class="nav-item"><a class="nav-link" href="#edgecases">Edge Cases</a></li>
           <li class="nav-item"><a class="nav-link" href="#hauky">Hậu kỳ</a></li>
           <li class="nav-item"><a class="nav-link" href="#tech">Tech</a></li>
         </ul>
@@ -267,11 +269,145 @@
     </div>
   </section>
 
+  <!-- TIỀN KỲ -->
+  <section id="setup" class="section section-alt">
+    <div class="container">
+      <div class="section-label">Giai đoạn Tiền Kỳ</div>
+      <h2 class="section-title">Chuẩn bị trước kỳ thi tại nhà, trước ngày thi 1–2 ngày</h2>
+      <p class="body-text col-lg-10 px-0">
+        Đây là giai đoạn đầu tiên của workflow <strong>Chuẩn bị trước — Đồng bộ sau</strong>.
+        Mục tiêu là hoàn tất phòng thi số, dữ liệu võ sinh, link/QR truy cập và hạ tầng dự phòng
+        trước khi đến sân thi.
+      </p>
+
+      <div class="process-overview my-4">
+        <div class="po-step">1. Tạo phòng thi</div>
+        <div class="po-arrow">→</div>
+        <div class="po-step">2. Chốt danh sách võ sinh</div>
+        <div class="po-arrow">→</div>
+        <div class="po-step">3. Tạo mã QR / Link</div>
+        <div class="po-arrow">→</div>
+        <div class="po-step">4. Chuẩn bị Router</div>
+      </div>
+
+      <div class="checklist-row mb-5">
+        <div class="check-item">Phòng thi đã sẵn sàng</div>
+        <div class="check-item">Dữ liệu võ sinh đã sẵn sàng</div>
+        <div class="check-item">Link / QR riêng cho giám khảo</div>
+        <div class="check-item">Thiết bị &amp; mạng đã được test</div>
+      </div>
+
+      <div class="accordion accordion-flush custom-accordion" id="accSetup">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#setup1">
+              Bước 1 — Tạo phòng thi (Exam Room)
+            </button>
+          </h2>
+          <div id="setup1" class="accordion-collapse collapse show" data-bs-parent="#accSetup">
+            <div class="accordion-body">
+              <p>Admin chạy <strong>Google Apps Script</strong> để hệ thống tự động tạo Folder và Google Sheets cho kỳ thi.</p>
+              <ul>
+                <li>Tạo cấu trúc thư mục Google Drive và file dữ liệu cho từng kỳ thi</li>
+                <li>Ví dụ tên phòng thi: <code>Thi_Thang_Dai_HCM_08_2026</code></li>
+                <li>Dùng chung cho cấu hình chấm thi, lưu trữ và hậu kỳ</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#setup2">
+              Bước 2 — Chốt danh sách võ sinh
+            </button>
+          </h2>
+          <div id="setup2" class="accordion-collapse collapse" data-bs-parent="#accSetup">
+            <div class="accordion-body">
+              <p>Import toàn bộ danh sách võ sinh đủ điều kiện dự thi vào hệ thống trên <strong>Google Sheets</strong>.</p>
+              <ul>
+                <li>Danh sách này là nguồn dữ liệu nền để giám khảo chấm điểm</li>
+                <li>Giúp đồng bộ tên võ sinh, CLB/đơn vị và dữ liệu hiển thị sau này</li>
+                <li>Cần hoàn tất trước khi sinh QR/link cho giám khảo</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#setup3">
+              Bước 3 — Tạo mã QR / Link truy cập
+            </button>
+          </h2>
+          <div id="setup3" class="accordion-collapse collapse" data-bs-parent="#accSetup">
+            <div class="accordion-body">
+              <p>Hệ thống sinh sẵn <strong>đường dẫn hoặc mã QR</strong> truy cập Web App chấm thi cho giám khảo.</p>
+              <ul>
+                <li>Giám khảo dùng điện thoại / tablet quét QR để vào app</li>
+                <li>Nếu dùng Cloud-First: link trỏ tới Web App trên GitHub Pages</li>
+                <li>Nếu dùng Local Server: link có thể trỏ tới IP nội bộ, ví dụ <code>http://192.168.1.100</code></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#setup4">
+              Bước 4 — Chuẩn bị Router (nếu dùng LAN nội bộ)
+            </button>
+          </h2>
+          <div id="setup4" class="accordion-collapse collapse" data-bs-parent="#accSetup">
+            <div class="accordion-body">
+              <p>Bước này áp dụng khi dự kiến vận hành <strong>Phương án B — Local Server</strong> tại sân thi.</p>
+              <ul>
+                <li>Cấu hình sẵn tên Wi-Fi, ví dụ: <code>PQQ_KhaoThi</code></li>
+                <li>Chuẩn bị đường truy cập để các thiết bị có thể “nói chuyện” với nhau</li>
+                <li>Kiểm tra máy in trong mạng LAN hoặc qua kết nối USB với laptop thư ký</li>
+                <li>Test trước ở nhà để tránh rủi ro IP, đứt cáp hoặc cấu hình sai tại sân</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4 mt-4">
+        <div class="col-lg-7">
+          <div class="warn-panel">
+            <h3 class="sub-title mb-3">Vấn đề thực tế cần tránh</h3>
+            <ul class="body-list mb-0">
+              <li>Setup mạng LAN ngay tại sân thi có rủi ro cao: máy không nhận IP, đứt cáp, sai cấu hình.</li>
+              <li>Không lưu dữ liệu rời rạc trên <code>localStorage</code> của từng điện thoại nếu cần Scoreboard realtime.</li>
+              <li>Các thiết bị bắt buộc phải “nói chuyện” được với nhau nếu muốn hiển thị Thủ khoa thời gian thực.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="highlight-panel">
+            <div class="highlight-item">
+              <span class="hi-num">A</span>
+              <span>Có 4G ổn định: ưu tiên <strong>Cloud-First</strong></span>
+            </div>
+            <div class="highlight-item">
+              <span class="hi-num">B</span>
+              <span>Mất sóng / sóng yếu: dùng <strong>Local Server</strong> để dự phòng</span>
+            </div>
+            <div class="highlight-item">
+              <span class="hi-num">C</span>
+              <span>Tiền Kỳ tốt giúp ngày thi chỉ còn việc vận hành và công bố kết quả</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- WORKFLOW -->
   <section id="workflow" class="section section-alt">
     <div class="container">
       <div class="section-label">Workflow vận hành</div>
-      <h2 class="section-title">Ba bước chính + hậu kỳ</h2>
+      <h2 class="section-title">End-to-End workflow từ Giám khảo đến Scoreboard</h2>
 
       <div class="row g-4 mt-2">
         <div class="col-lg-4">
@@ -284,8 +420,8 @@
         <div class="col-lg-4">
           <div class="phase-card phase-card-primary">
             <div class="phase-num">Bước 2</div>
-            <h3>Chấm điểm &amp; luồng dữ liệu</h3>
-            <p>Giám khảo gửi điểm realtime → Thư ký rà soát &amp; khóa phiếu → Chánh chủ khảo duyệt bằng PIN trên Web App.</p>
+            <h3>Chấm điểm &amp; chuỗi trạng thái</h3>
+            <p>Giám khảo gửi hoặc lưu điểm → <code>DRAFT</code> → Thư ký khóa phiếu <code>PENDING_APPROVAL</code> → CCK nhập PIN duyệt <code>OFFICIALLY_APPROVED</code>.</p>
           </div>
         </div>
         <div class="col-lg-4">
@@ -311,8 +447,33 @@
         <div class="po-step">Scoreboard LED</div>
       </div>
 
-      <p class="body-text mb-0 col-lg-10 px-0">
-        Luồng video (Meet/Zoom/Teams) chạy <strong>song song</strong> với luồng điểm số — không thay thế hệ thống chấm điểm.
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="pillar">
+            <h3>Kịch bản 1 · Online 3 miền</h3>
+            <ol class="body-list mb-0">
+              <li>Giám khảo nhập điểm và nhấn <strong>GỬI ĐIỂM</strong></li>
+              <li>Apps Script validate payload JSON, ghi Google Sheets ở trạng thái <code>DRAFT</code></li>
+              <li>Thư ký rà soát, nhấn <strong>Khóa phiếu</strong> → <code>PENDING_APPROVAL</code></li>
+              <li>CCK nhập PIN, Apps Script xác thực hash PIN + role → <code>OFFICIALLY_APPROVED</code></li>
+            </ol>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="pillar">
+            <h3>Kịch bản 2 · Offline cục bộ</h3>
+            <ol class="body-list mb-0">
+              <li>Giám khảo nhập điểm và nhấn <strong>LƯU ĐIỂM</strong></li>
+              <li>Dữ liệu ghi vào <code>localStorage</code> / IndexedDB kèm timestamp thiết bị</li>
+              <li>Có mạng yếu: nhấn <strong>ĐỒNG BỘ</strong> để upsert lên Cloud</li>
+              <li>Mất sóng 100%: xuất QR nén/mã hóa để Thư ký quét gom điểm</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <p class="body-text mt-4 mb-0 col-lg-10 px-0">
+        Luồng video (Meet/Zoom/Teams) chạy <strong>song song</strong> với luồng điểm số — hỗ trợ CCK đối chiếu hình ảnh nhưng không thay thế hệ thống chấm điểm.
       </p>
     </div>
   </section>
@@ -386,6 +547,25 @@
           </ol>
         </div>
         <div class="col-lg-6">
+          <h3 class="sub-title light">Payload Online gửi Apps Script</h3>
+          <div class="tree-block">
+            <pre class="tree-pre">{
+  "action": "submitScore",
+  "examId": "PQQ-HCM-2026-008",
+  "roomId": "ROOM_A",
+  "boutId": "BOUT-000123",
+  "student": { "studentId": "VS-000058", "studentCode": "PQQ-058" },
+  "judge": { "judgeId": "GK-101" },
+  "scores": { "P1": 7, "P2": 8, "P3": 6, "total": 21 },
+  "idempotencyKey": "PQQ-HCM-2026-008|ROOM_A|BOUT-000123|VS-000058|GK-101",
+  "submittedAt": "2026-07-16T14:37:12.123+07:00"
+}</pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4 mt-4">
+        <div class="col-lg-6">
           <h3 class="sub-title light">Cấu trúc dữ liệu trên Sheets</h3>
           <div class="table-responsive">
             <table class="table tech-table tech-table-dark align-middle mb-0">
@@ -400,9 +580,24 @@
                 <tr><td><code>Võ sinh</code></td><td>Họ tên võ sinh</td></tr>
                 <tr><td><code>P1, P2, P3</code></td><td>Điểm thành phần</td></tr>
                 <tr><td><code>Tổng</code></td><td>Tổng điểm</td></tr>
-                <tr><td><code>Trạng thái</code></td><td>DRAFT → PENDING → APPROVED</td></tr>
+                <tr><td><code>Trạng thái</code></td><td>DRAFT → PENDING_APPROVAL → OFFICIALLY_APPROVED</td></tr>
               </tbody>
             </table>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <h3 class="sub-title light">Payload Offline lưu cục bộ</h3>
+          <div class="tree-block">
+            <pre class="tree-pre">{
+  "action": "offlineSaveScore",
+  "scoreKey": "PQQ-HCM-2026-008|ROOM_A|BOUT-000123|VS-000058|GK-101",
+  "student": { "studentId": "VS-000058" },
+  "judge": { "judgeId": "GK-101" },
+  "scores": { "P1": 7, "P2": 8, "P3": 6, "total": 21 },
+  "savedAtDevice": "2026-07-16T14:40:01.000+07:00",
+  "savedAtEpochMs": 1721121601000,
+  "payloadId": "sub-9d3a5f4d-2d0b-4c2a-8a77-1e2a6b4d6c01"
+}</pre>
           </div>
         </div>
       </div>
@@ -418,6 +613,21 @@
           <div class="status-box status-approved">
             <h4>OFFICIALLY_APPROVED</h4>
             <p class="mb-0">Đã duyệt bằng PIN — sẵn sàng công bố Scoreboard, xuất PDF và lưu Drive.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4 mt-4">
+        <div class="col-md-6">
+          <div class="status-box status-pending">
+            <h4>Khóa phiếu ở Frontend + Backend</h4>
+            <p class="mb-0">Khi Thư ký khóa phiếu, UI sẽ disable input và nút gửi; Backend vẫn bắt buộc chặn mọi request sửa điểm nếu phiếu không còn ở trạng thái <code>DRAFT</code>.</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="status-box status-approved">
+            <h4>PIN không lưu plaintext</h4>
+            <p class="mb-0">Apps Script nên xác thực bằng hash PIN + salt, ràng buộc role CCK và giới hạn số lần thử sai để bảo vệ bước duyệt chính thức.</p>
           </div>
         </div>
       </div>
@@ -456,6 +666,13 @@
               </tbody>
             </table>
           </div>
+
+          <h3 class="sub-title mt-4">Tối ưu quota</h3>
+          <ul class="body-list mb-0">
+            <li><code>CacheService</code> cache scoreboard đã tính</li>
+            <li><code>sinceVersion</code> để trả về <code>UNCHANGED</code> khi không có dữ liệu mới</li>
+            <li>Jitter polling để không bắn đồng loạt từ nhiều màn hình</li>
+          </ul>
         </div>
 
         <div class="col-lg-7">
@@ -503,21 +720,77 @@
     </div>
   </section>
 
+  <!-- EDGE CASES -->
+  <section id="edgecases" class="section section-dark">
+    <div class="container">
+      <div class="section-label light">Xử lý sự cố</div>
+      <h2 class="section-title light">Idempotency, QR Sync và Conflict Resolution</h2>
+      <div class="row g-4 mt-2">
+        <div class="col-lg-6">
+          <h3 class="sub-title light">Online · mạng chập chờn</h3>
+          <div class="status-box status-approved">
+            <h4>Idempotency Key</h4>
+            <p class="mb-0">
+              Mỗi lần submit giữ nguyên <code>idempotencyKey</code> cho cùng một <code>scoreKey</code>.
+              Nếu người dùng bấm nhiều lần hoặc request timeout, Apps Script chỉ trả lại kết quả cũ thay vì ghi thêm dòng mới.
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <h3 class="sub-title light">Offline · xung đột đồng bộ</h3>
+          <div class="status-box status-pending">
+            <h4>Conflict Resolution</h4>
+            <p class="mb-0">
+              Nếu cùng một <code>scoreKey</code> nhưng khác <code>payloadHash</code>, hệ thống không overwrite trực tiếp mà đánh dấu
+              <code>NEEDS_REVIEW</code>, chờ CCK đối chiếu video và chọn attempt đúng trước khi duyệt chính thức.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4 mt-4">
+        <div class="col-lg-6">
+          <h3 class="sub-title light">QR Sync khi mất sóng 100%</h3>
+          <div class="tree-block">
+            <pre class="tree-pre">{
+  "v": 1,
+  "expId": "exp-2d6a7c2c-3f3c-4f4e-9b7b-1a2b3c4d5e6f",
+  "chunkIndex": 1,
+  "chunkCount": 3,
+  "data": "BASE64URL(CompressedBytes)",
+  "digest": "sha256(canonicalPayload)"
+}</pre>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <h3 class="sub-title light">Chuỗi xử lý QR</h3>
+          <ol class="light-list">
+            <li>Serialize payload JSON theo canonical format</li>
+            <li>Nén (LZ-string / deflate) để giảm dung lượng</li>
+            <li>Tùy chọn mã hóa AES-256-GCM với <code>qrSecret</code></li>
+            <li>Base64URL encode rồi render thành một hoặc nhiều QR chunk</li>
+            <li>Thư ký quét → decode → decrypt (nếu có) → decompress → verify digest → dedup</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- HẬU KỲ -->
   <section id="hauky" class="section section-alt">
     <div class="container">
       <div class="section-label">Quy trình hậu kỳ</div>
-      <h2 class="section-title">Xuất PDF · In ấn · Lưu trữ Drive</h2>
+      <h2 class="section-title">Tự động xuất PDF · Chèn chữ ký · Lưu trữ Drive</h2>
 
       <div class="row g-4 mt-2">
         <div class="col-md-6">
           <div class="pillar">
             <h3>Thi Online</h3>
             <ol class="body-list mb-0">
-              <li>Dữ liệu đã có sẵn trên Google Sheets</li>
-              <li>Xuất PDF phiếu điểm trên Web App</li>
-              <li>In qua máy in USB (nếu cần bản cứng)</li>
-              <li>Lưu trữ trên Google Drive</li>
+              <li>Phiếu đạt <code>OFFICIALLY_APPROVED</code> trên Google Sheets</li>
+              <li>Apps Script gọi hàm tạo PDF từ template</li>
+              <li>Gắn đường dẫn PDF và hash trở lại Sheets</li>
+              <li>Lưu trữ trên Google Drive và in qua USB nếu cần</li>
             </ol>
           </div>
         </div>
@@ -526,9 +799,9 @@
             <h3>Thi Offline</h3>
             <ol class="body-list mb-0">
               <li>Kết nối Internet (4G/Wi-Fi)</li>
-              <li>Nhấn <strong>ĐỒNG BỘ</strong> / <strong>Đồng bộ lên Google Sheets</strong></li>
-              <li>Đẩy dữ liệu local lên Sheets &amp; Drive</li>
-              <li>Xuất PDF / in / lưu trữ tương tự Online</li>
+              <li>Nhấn <strong>ĐỒNG BỘ</strong> để upsert dữ liệu local lên Sheets</li>
+              <li>Khóa phiếu, duyệt PIN, chuyển <code>OFFICIALLY_APPROVED</code></li>
+              <li>Kích hoạt lại luồng tạo PDF / in / lưu trữ tương tự Online</li>
             </ol>
           </div>
         </div>
@@ -537,9 +810,28 @@
       <div class="pdf-flow mt-5">
         <div class="pdf-step"><span>1</span> Duyệt trên Web App</div>
         <div class="pdf-step"><span>2</span> Xuất PDF phiếu điểm</div>
-        <div class="pdf-step"><span>3</span> In qua máy in USB</div>
-        <div class="pdf-step"><span>4</span> Thầy Chưởng Môn ký &amp; đóng dấu</div>
+        <div class="pdf-step"><span>3</span> Chèn chữ ký &amp; con dấu</div>
+        <div class="pdf-step"><span>4</span> In qua máy in USB</div>
         <div class="pdf-step"><span>5</span> Lưu Google Drive</div>
+      </div>
+
+      <div class="row g-4 mt-4">
+        <div class="col-lg-6">
+          <div class="pillar">
+            <h3>Visual signature / stamp</h3>
+            <p class="mb-0">
+              Chữ ký và con dấu của Thầy Chưởng Môn có thể lưu dưới dạng ảnh trong Google Drive, sau đó Apps Script chèn vào template Google Docs trước khi export PDF.
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="pillar">
+            <h3>Lưu ý chữ ký số pháp lý</h3>
+            <p class="mb-0">
+              Nếu yêu cầu chữ ký số cryptographic theo chuẩn pháp lý (PAdES/PKCS#7), cần thêm công cụ ký số chuyên dụng ngoài Apps Script; stack hiện tại phù hợp nhất với chữ ký dạng hình ảnh để in và lưu trữ vận hành.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -627,7 +919,7 @@ Switch Mode trên cùng bản triển khai:
             </tr>
             <tr>
               <td><strong>Offline</strong></td>
-              <td>PWA · <code>localStorage</code> · QR sync</td>
+              <td>PWA · Service Worker · <code>localStorage</code> / IndexedDB · QR sync</td>
               <td>Chấm thi khi mất mạng, đồng bộ sau</td>
             </tr>
             <tr>
