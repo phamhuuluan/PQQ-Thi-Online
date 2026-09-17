@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a56db">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="PQQ Thi">
+  <title>PQQ — Chấm điểm Đầy đủ</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="/pwa/manifest.webmanifest">
+  <link rel="icon" href="/assets/icons/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/icons/icon-192.png">
+</head>
+<body>
+  <div id="app">
+    <header class="app-header">
+      <h1>Chấm điểm Đầy đủ</h1>
+      <button type="button" id="header-logout" class="btn btn-secondary btn-logout">Đăng xuất</button>
+    </header>
+    <main id="scoring-container">
+      <!-- Scoring form injected by JS -->
+    </main>
+  </div>
+
+  <script src="js/api/adapter.js"></script>
+  <script src="js/utils/toast.js"></script>
+  <script src="js/utils/error-handler.js"></script>
+  <script src="js/api/client.js"></script>
+  <script src="js/utils/health-banner.js"></script>
+  <script src="js/utils/pwa-register.js"></script>
+  <script src="js/auth/session.js"></script>
+  <script src="js/features/scoring/scoring-core.js"></script>
+  <script src="js/features/scoring/full.js"></script>
+  <script>
+    (function () {
+      var btn = document.getElementById('header-logout');
+      if (btn) btn.addEventListener('click', function () {
+        if (window.PqqSession) PqqSession.logout();
+        else { sessionStorage.removeItem('pqq_session'); location.href = 'index.html'; }
+      });
+    })();
+  </script>
+</body>
+</html>

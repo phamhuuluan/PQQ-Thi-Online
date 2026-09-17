@@ -1,0 +1,21 @@
+{
+  "description": "Sample snapshot metadata after sync/pull — reference for Tiền kỳ verification",
+  "examId": "PQQ-DEMO-2026-001",
+  "pulledAt": "2026-07-29T08:00:00.000Z",
+  "source": {
+    "sheetsId": "YOUR_SPREADSHEET_ID",
+    "tabs": ["EXAM_CONFIG", "STUDENTS", "JUDGES", "SCORES", "ROOMS"]
+  },
+  "counts": {
+    "students": 3,
+    "judges": 3,
+    "rooms": 1,
+    "scores": 0
+  },
+  "verify": {
+    "healthEndpoint": "GET http://pqq.local:3000/api/health",
+    "examConfigEndpoint": "GET http://pqq.local:3000/api/getExamConfig?examId=PQQ-DEMO-2026-001",
+    "demoPassword": "demo123",
+    "expectedExamId": "PQQ-DEMO-2026-001"
+  }
+}

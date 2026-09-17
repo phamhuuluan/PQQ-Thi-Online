@@ -1,0 +1,11 @@
+{
+  "onlineApiUrl": "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec",
+  "pollingInterval": 10000,
+  "scoreboardPollingInterval": 10000,
+  "scoreboardPollingJitterMs": 1500,
+  "scoreboardCacheTtlSeconds": 18,
+  "scoreboardLanPollingInterval": 4000,
+  "scoreboardLanPollingJitterMs": 500,
+  "version": "1.0.0",
+  "localApiBase": ""
+}

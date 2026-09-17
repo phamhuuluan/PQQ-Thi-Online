@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PQQ — Không có kết nối</title>
+  <link rel="stylesheet" href="/styles.css">
+  <meta name="theme-color" content="#1a56db">
+  <style>
+    .offline-shell {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .offline-icon { font-size: 4rem; margin-bottom: 1rem; }
+    .offline-shell h1 { font-size: 1.5rem; margin-bottom: 0.75rem; }
+    .offline-shell p { color: var(--color-text-muted); margin-bottom: 1.5rem; }
+    .offline-actions { display: flex; flex-direction: column; gap: 0.75rem; align-items: center; }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <header class="app-header">
+      <h1>PQQ Thi Online</h1>
+    </header>
+    <main class="offline-shell">
+      <div class="offline-icon" aria-hidden="true">📡</div>
+      <h1>Không có kết nối mạng</h1>
+      <p>
+        Giao diện đã được lưu trên thiết bị, nhưng không thể tải dữ liệu mới.
+        Kiểm tra Wi-Fi hoặc kết nối Internet, sau đó thử lại.
+      </p>
+      <div class="offline-actions">
+        <button type="button" class="btn btn-primary" onclick="window.location.reload()">Thử lại</button>
+        <a href="/index.html" class="btn btn-secondary">Về trang chủ</a>
+      </div>
+      <p id="offline-mode-hint" class="hint" style="margin-top:2rem;font-size:0.875rem;"></p>
+    </main>
+  </div>
+  <script>
+    (function() {
+      var host = window.location.hostname;
+      var isLan = host === 'localhost' || host.endsWith('.local') || /^192\.168\./.test(host) || /^10\./.test(host);
+      var el = document.getElementById('offline-mode-hint');
+      if (isLan) {
+        el.textContent = 'Chế độ Offline B: đảm bảo laptop Thư ký đang bật Local Server.';
+      } else {
+        el.textContent = 'Chế độ Online: cần Internet để đồng bộ điểm lên Cloud.';
+      }
+    })();
+  </script>
+</body>
+</html>

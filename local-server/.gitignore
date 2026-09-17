@@ -1,0 +1,6 @@
+node_modules/
+db/pqq.sqlite
+db/pqq.sqlite-wal
+db/pqq.sqlite-shm
+config.json
+service-account.json
